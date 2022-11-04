@@ -1,4 +1,4 @@
-module github.com/micrease/gorme
+module github.com/sohenk/gorme
 
 go 1.18
 

@@ -79,7 +79,10 @@ func PaginateQuery[T any](query *gorm.DB, page PageQuery) (*PageResult[T], error
 
 	offset := (page.PageNo - 1) * page.PageSize
 	var rows []*T
-	err := query.Limit(page.PageSize).Offset(offset).Find(&rows).Count(&result.TotalSize).Error
+
+	err := query.Find(&rows).Count(&result.TotalSize).Error
+
+	err = query.Limit(page.PageSize).Offset(offset).Find(&rows).Error
 	if (int(result.TotalSize) % page.PageSize) > 0 {
 		result.TotalPage = result.TotalSize/int64(page.PageSize) + 1
 	} else {
